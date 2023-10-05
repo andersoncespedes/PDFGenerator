@@ -41,23 +41,28 @@ public class ProductoController : BaseApiController
         //Agregar texto
         doc.Add(new Paragraph("Hello Niggers i like pennne")
         .SetFontColor(ColorConstants.BLACK));
-        
+        PropertyInfo[] propiedades = typeof(ProductoDto).GetProperties();
         //Agregar Tabla
-        Table table = new Table(products.totalRegistros);
+        Table table = new Table(propiedades.Length);
         table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
-        foreach(var x in lstProductDto){
-           
-            Type type = x.GetType();
-            PropertyInfo[] propiedad = type.GetProperties();
-            foreach(var i in propiedad){
-                Cell cell1 = new Cell().Add(new Paragraph(i.Name ));
-                Cell cell2 = new Cell().Add(new Paragraph(i.GetValue(x).ToString() ));
+        
 
+        // Imprimir encabezados de la tabla
+        foreach (var propiedad in propiedades)
+        {
+            Cell cell = new Cell().Add(new Paragraph(propiedad.Name));
+            table.AddCell(cell);
+        }
+
+        // Imprimir datos de la lista
+        foreach (var objeto in lstProductDto)
+        {
+            foreach (var propiedad in propiedades)
+            {
+                var valor = propiedad.GetValue(objeto);
+                Cell cell1 = new Cell().Add(new Paragraph(valor.ToString()));
                 table.AddCell(cell1);
-                table.AddCell(cell2);
-
             }
-            
         }
         // Agregar elemento
 
