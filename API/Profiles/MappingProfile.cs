@@ -7,6 +7,8 @@ namespace API.Profiles;
 public class MappingProfile : Profile
 {
     public MappingProfile(){
-        CreateMap<Producto, ProductoDto>().ReverseMap();
+        CreateMap<Producto, ProductoDto>()
+        .ForMember(x => x.Marca, dest => dest.MapFrom(r => r.Marca.Descripcion))
+        .ReverseMap();
     }
 }
