@@ -1,17 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.IO;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using Application.UnitOfWork;
 using Domain.Interface;
-using Microsoft.AspNetCore.Http;
 using iText.Layout.Properties;
 using iText.Kernel.Geom;
 using iText.Kernel.Colors;
 using iText.Kernel.Font;
-using Microsoft.OpenApi.Expressions;
+using iText.IO.Font;
 namespace API.Controllers;
 
 [ApiController]
@@ -30,7 +27,7 @@ public class WeatherForecastController : Controller
     {
         _logger = logger;
     }
-    [HttpGet("PDF")]
+
     public IActionResult GenerarProductoPdf()
     {
           // Crear un MemoryStream para almacenar el PDF
@@ -43,22 +40,16 @@ public class WeatherForecastController : Controller
         doc.SetMargins(75,35,70,35);
 
         //Agregar texto
-        doc.Add(new Paragraph("Hello Niggers i like pennne").SetFontColor(ColorConstants.BLACK));
-
+        PdfFont FontPath =  PdfFontFactory.CreateFont ("arial");
+        doc.Add(new Paragraph("Hello Niggers i like pennne")
+        .SetFontColor(ColorConstants.BLACK)
+        .SetFont(FontPath));
+        
         //Agregar Tabla
-        Table table = new Table(3);
+        Table table = new Table(6);
         table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
 
-        Cell headerCe1 = new Cell().Add(new Paragraph("Columna 1"));
-        Cell headerCe2 = new Cell().Add(new Paragraph("Columna 2"));
-        Cell headerCe3 = new Cell().Add(new Paragraph("Columna 3"));
-        
-
-        table.AddHeaderCell(headerCe1);
-        table.AddHeaderCell(headerCe2);
-        table.AddHeaderCell(headerCe3);
-
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 1; i++)
         {   
             Cell cell1 = new Cell().Add(new Paragraph("Elemento 1 "));
             Cell cell2 = new Cell().Add(new Paragraph("elemento 2"));

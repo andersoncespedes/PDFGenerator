@@ -1,10 +1,7 @@
-using System.Text;
-using Application.UnitOfWork;
-using Domain.Entities;
-using Domain.Interface;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Application.UnitOfWork;
+using Domain.Interface;
+using AutoMapper;
 namespace API.Extensions
 {
     public static class AplicationServicesExtensions
@@ -12,6 +9,8 @@ namespace API.Extensions
         public static void AddAplicacionServices(this IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
         }
     }
 }

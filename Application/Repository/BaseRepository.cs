@@ -27,7 +27,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
         return _context.Set<T>().Where(expression);
     }
 
-    public virtual async Task<(int totalRegistros, IEnumerable<T> registros)> GetAllAsync(int pageIndex, int pageSize)
+      public virtual async Task<(int totalRegistros, IEnumerable<T> registros)> paginacion (int pageIndex, int pageSize, string _search)
     {
         var totalRegistros = await _context.Set<T>().CountAsync();
         var registros = await _context.Set<T>()
