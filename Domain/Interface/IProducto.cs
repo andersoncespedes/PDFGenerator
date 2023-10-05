@@ -8,5 +8,4 @@ namespace Domain.Interface;
 
 public interface IProducto : IBaseRepository<Producto>
 {
-    void GenerarProductoPdf();
 }

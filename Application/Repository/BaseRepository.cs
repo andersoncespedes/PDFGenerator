@@ -1,5 +1,12 @@
 
 using System.Linq.Expressions;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using System.Reflection;
+using iText.Layout.Properties;
+using iText.Kernel.Geom;
+using iText.Kernel.Colors;
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Domain.Interface;
@@ -39,9 +46,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     public async Task<T> GetById(int id)
     {
         return await _context.Set<T>().FindAsync(id);
-    }
-
-    public void Remove(T entity)
+    }    public void Remove(T entity)
     {
         _context.Set<T>().Remove(entity);
     }
