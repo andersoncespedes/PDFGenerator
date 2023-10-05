@@ -27,6 +27,7 @@ public class WeatherForecastController : Controller
     {
         _logger = logger;
     }
+    [HttpGet("pdf")]
 
     public IActionResult GenerarProductoPdf()
     {
@@ -40,10 +41,8 @@ public class WeatherForecastController : Controller
         doc.SetMargins(75,35,70,35);
 
         //Agregar texto
-        PdfFont FontPath =  PdfFontFactory.CreateFont ("arial");
         doc.Add(new Paragraph("Hello Niggers i like pennne")
-        .SetFontColor(ColorConstants.BLACK)
-        .SetFont(FontPath));
+        .SetFontColor(ColorConstants.BLACK));
         
         //Agregar Tabla
         Table table = new Table(6);
