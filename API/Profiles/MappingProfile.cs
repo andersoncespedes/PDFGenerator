@@ -10,5 +10,7 @@ public class MappingProfile : Profile
         CreateMap<Producto, ProductoDto>()
         .ForMember(x => x.Marca, dest => dest.MapFrom(r => r.Marca.Descripcion))
         .ReverseMap();
+
+        CreateMap<Marca, MarcaDto>().ReverseMap();
     }
 }

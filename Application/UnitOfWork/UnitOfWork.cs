@@ -1,12 +1,12 @@
 using Application.Repository;
 using Domain.Interface;
 using Persistence.Data;
-using Domain.Interface;
 namespace Application.UnitOfWork;
 
 public class UnitOfWork : IUnitOfWork, IDisposable
 {
     private ProductoRepository _productos;
+    private MarcaRepository _marca;
     private readonly PDFGeneratorContext _context;
     public UnitOfWork(PDFGeneratorContext context){
         _context = context;
@@ -17,7 +17,12 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         }
         return _productos;
     }}
-
+    public IMarca Marca {
+        get{
+            _marca ??= new MarcaRepository(_context);
+            return _marca;
+        }
+    }
     public void Dispose()
     {
         _context.Dispose();
