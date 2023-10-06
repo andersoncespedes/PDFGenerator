@@ -1,25 +1,52 @@
-using System;
-using System.Collections.Generic;
+
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using System.Reflection;
 using iText.Layout.Properties;
 using iText.Kernel.Geom;
+using iText.IO.Font.Constants;
 using iText.Kernel.Colors;
+using iText.Kernel.Font;
+using iText.IO.Image;
+using iText.Layout.Borders;
+using Microsoft.VisualBasic;
+
 namespace API.Services;
 
 public class Generador_Pdf
 {
-    public void Document<T>(List<T> lstProductDto, MemoryStream ms ){
-        PdfWriter pdfWriter = new PdfWriter(ms);
-        PdfDocument pdfDoc = new PdfDocument(pdfWriter);
-        Document doc = new Document(pdfDoc, PageSize.LETTER);
-        doc.SetMargins(75, 35, 70, 35);
+    public void Header(Document doc, PdfDocument pdfDocument)
+    {
+        PdfFont font = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
+        Paragraph paragraph = new Paragraph();
+        Image image = new Image(ImageDataFactory.Create("C:/Users/APOLT01/Desktop/PDFGenerator/API/Image/pngegg.png"));
+        image.SetFixedPosition(pdfDocument.GetDefaultPageSize().GetWidth() - 600, pdfDocument.GetDefaultPageSize().GetHeight() - 100);
+        image.ScaleToFit(100, 50);
+        doc.SetTextAlignment(TextAlignment.RIGHT);
+        doc.SetMargins(55, 35, 70, 35);
+        doc.SetTextAlignment(TextAlignment.RIGHT);
+        doc.SetFontSize(10);
+        doc.Add(new Paragraph("Reporte CampusLands Medicamentos").SetMargin(1).SetFontSize(10));
+        doc.Add(new Paragraph("Anderson Cepedez").SetMargin(1));
+        doc.Add(new Paragraph("Diego Muñoz").SetMargin(1));
         doc.SetTextAlignment(TextAlignment.CENTER);
+        doc.Add(new Paragraph("Reporte de productos").SetFontSize(30).SetFont(font));
+        doc.Add(image);
+    }
+    public void Document<T>(List<T> lstProductDto, MemoryStream ms)
+    {
+        PdfWriter pdfWriter = new (ms);
+        PdfDocument pdfDoc = new (pdfWriter);
+        Document doc = new (pdfDoc, PageSize.LETTER);
+        doc.SetBackgroundColor( new DeviceRgb(12,12,12));
+        doc.SetMargins(75, 35, 70, 35);
+        doc.SetBorder(new SolidBorder(2f));
+        Header(doc, pdfDoc);
         PropertyInfo[] propiedades = lstProductDto[0].GetType().GetProperties();
-        doc.Add(new Paragraph("Hola Como Estas"));
+        doc.SetBorder(new SolidBorder(new DeviceRgb(23,12,43), 3));
         // Agregar Tabla
+        doc.SetTextAlignment(TextAlignment.CENTER);
         Table table = new Table(propiedades.Length);
         table.SetMarginTop(10); // Ajusta el espacio entre la tabla y el contenido superior del documento
         table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
@@ -27,11 +54,12 @@ public class Generador_Pdf
         // Agregar encabezados a la tabla
         foreach (var propiedad in propiedades)
         {
-            Cell headerCell = new Cell().Add(new Paragraph(propiedad.Name)
+            Cell headerCell = new Cell().SetPadding(0).Add(new Paragraph(propiedad.Name)
                 .SetBold() //texto en negrita
-                .SetFontSize(10) //tamaño de letra
-                .SetBackgroundColor(new DeviceRgb(255, 215, 0)) //color de fondo
-                .SetPadding(10)); // ajustar el relleno
+                .SetFontSize(12) //tamaño de letra
+                .SetBackgroundColor(new DeviceRgb(210, 210, 210)
+                ).SetPadding(10) //color de fondo
+               );
             headerCell.SetTextAlignment(TextAlignment.CENTER);
 
             table.AddCell(headerCell);
@@ -43,7 +71,7 @@ public class Generador_Pdf
             foreach (var propiedad in propiedades)
             {
                 Cell dataCell = new Cell().Add(new Paragraph(propiedad.GetValue(x).ToString())
-                    .SetFontSize(8) // tamaño de fuente
+                    .SetFontSize(12) // tamaño de fuente
                     .SetPadding(5)); // el relleno
                 dataCell.SetTextAlignment(TextAlignment.CENTER);
 
@@ -55,6 +83,7 @@ public class Generador_Pdf
         doc.Add(table);
         doc.Close();
     }
+
     public MemoryStream Generador<T>(List<T> lstProductDto)
     {
         MemoryStream ms = new MemoryStream();
