@@ -24,7 +24,6 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Pager<ProductoDto>>> Get11([FromQuery] Params productParams)
         {
-
             var products = await _unitOfWork.Productos.paginacion(productParams.PageIndex, productParams.PageSize, productParams.Search);
             var lstProductDto = _mapper.Map<List<ProductoDto>>(products.registros);
             var ms = _generador.Generador<ProductoDto>(lstProductDto);
