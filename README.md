@@ -4,8 +4,55 @@ El proyecto "Generador de Reportes desde una Base de Datos en C#" es una aplicac
 - Conexión a una variedad de bases de datos, como SQL Server, MySQL, PostgreSQL, etc.
 - Consultas SQL o métodos LINQ para extraer datos de la base de datos.
 - Creación de plantillas de informes personalizadas.
-- Generación de informes en diferentes formatos (PDF, Excel, HTML, etc.).
+- Generación de informes en diferentes formatos PDF
 - Personalización de estilos y diseños de informes.
 - Programación de la generación de informes de manera automatizada.
 - Exportación de informes a través de una interfaz de usuario o mediante comandos programáticos.
+## Paquetes Utilizados
+- Itext7
+- BouncyCastle
 ## Instrucciones
+Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas.
+### Empezamos
+- Iniciamos un proyecto c# NetCore de cuatro capas
+- Agregamos, al menos, una entidad 
+- Hacemos una migracion para actualizar la base de datos
+- Creamos los repositorios correspondientes
+- Implementamos los controladores con un endpoint llamado PDF
+### Itext7
+Al terminar los pasos basicos al crear nuestro proyecto procedemos a instalar el paquete Itext7, con el cual podemos generar archivos PDF en el proyecto API.
+
+Tambien tendremos instalar un paquete llamado BouncyCastle que nos resolvera algunos problemas y bugs que presenta el Itext7. de igual forma lo instalaremos en API.
+
+### Services
+
+Para una Administracion mas optima del codigo se recomienda crear un servicio generico, el cual sera utilizado para generar los reportes dinamicamente independientemente sus datos. para esto creamos en la carpeta "Service" una clase llamada PDFGenerator.
+
+En esta clase crearemos varios metodos, el primero LLamado "Generator", este metodo sera el que contenga la carga de memoria en bytes del archivo.
+
+Tambien Crearemos el metodo "Header" Donde se hara la configuracion y personalizacion de la parte superior del documento.
+
+Al mismo tiempo creamos uno llamado Body y Footer, que como su nombre indica se encargaran de la configuracion y personalizacion de la parte central e inferior del documento respectivamente
+
+### Controlador
+
+Declaramos el servicio en los controladores el servicio "PDFGenerator" y la instanciamos en el constructor para usarlo en toda la clase
+
+Desde el Controlador que creamos para generar pdf hacemos un llamado hacia el repositorio de la entidad que deseamos hacerle un reporte. en este caso usamos el metodo de paginacion para limitar la cantidad de informacion que podamos reportar.
+
+Creamos un pdo para mapear la lista
+
+Enviamos la lista mapeada hacia el servicio y esta debe retornarnos un valor "MemoryStream" que retornaremos por el endpoint para su descarga.
+
+### Endpoint
+ 
+Creamos un nuevo request para Verificar si funciona correctamente, al clickear "send" nos deberia permitir descargar un archivo.
+
+Descargamos el archivo, lo abrimos y podremos observar que se genero correctamente.
+
+## Authors
+
+- [@andersoncespedes](https://www.github.com/andersoncespedes)
+- [@Alejomdi193](https://github.com/Alejomdi193)
+
+
