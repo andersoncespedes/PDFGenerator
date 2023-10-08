@@ -78,7 +78,7 @@ Descargamos el archivo, lo abrimos y podremos observar que se genero correctamen
 
 ![Image Text](https://github.com/andersoncespedes/PDFGenerator/blob/main/Assets/pdf.PNG)
 
-## Authors
+## Autores
 
 - [@andersoncespedes](https://www.github.com/andersoncespedes)
 - [@Alejomdi193](https://github.com/Alejomdi193)
