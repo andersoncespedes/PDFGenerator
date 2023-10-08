@@ -56,7 +56,7 @@ Declaramos el servicio en los controladores el servicio "PDFGenerator" y la inst
 
 Desde el Controlador que creamos para generar pdf hacemos un llamado hacia el repositorio de la entidad que deseamos hacerle un reporte. en este caso usamos el metodo de paginacion para limitar la cantidad de informacion que podamos reportar.
 
-![Image Text](https://github.com/andersoncespedes/PDFGenerator/blob/main/Assets/Controllers2.PNG)
+![Image Text](https://github.com/andersoncespedes/PDFGenerator/blob/main/Assets/Controllers2.png)
 
 Creamos un pdo para mapear la lista
 
@@ -64,7 +64,7 @@ Creamos un pdo para mapear la lista
 
 Enviamos la lista mapeada hacia el servicio y esta debe retornarnos un valor "MemoryStream" que retornaremos por el endpoint para su descarga.
 
-![Image Text](https://github.com/andersoncespedes/PDFGenerator/blob/main/Assets/Controllers3.PNG)
+![Image Text](https://github.com/andersoncespedes/PDFGenerator/blob/main/Assets/Controllers3.png)
 
 ### Endpoint
  
