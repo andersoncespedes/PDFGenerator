@@ -84,6 +84,6 @@ Descargamos el archivo, lo abrimos y podremos observar que se genero correctamen
 - [@Alejomdi193](https://github.com/Alejomdi193)
 
 ## Video
-![VideoExplicativo](https://www.youtube.com/watch?v=3gq8GJcQYZU)
+[VideoExplicativo](https://www.youtube.com/watch?v=3gq8GJcQYZU)
 
 
