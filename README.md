@@ -83,7 +83,7 @@ Descargamos el archivo, lo abrimos y podremos observar que se genero correctamen
 - [@andersoncespedes](https://www.github.com/andersoncespedes)
 - [@Alejomdi193](https://github.com/Alejomdi193)
 
-## Video
+## Video Explicativo
 [VideoExplicativo](https://www.youtube.com/watch?v=3gq8GJcQYZU)
 
 
